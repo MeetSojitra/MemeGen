@@ -20,17 +20,24 @@ export default function Meme() {
      * correct way.
      */
 
-    const[memeImage, setMemeImage] = React.useState({
+    const[meme, setMeme] = React.useState({
             topText: "",
             bottomText: "",
             randomImage: "http://i.imgflip.com/1bij.jpg"
         });
 
+    const[allMemeImages, setAllMemeImages] = React.useState(memesdata);
+
     function getMemeImage(){
         const memesarray=memesdata.data.memes;
         const randomImage = Math.floor(Math.random() * memesarray.length);
         
-        setMemeImage(memesarray[randomImage].url);
+        setMeme(prev => {
+            return {
+                ...prev,
+                randomImage: memesarray[randomImage].url
+            }
+        });
     }
 
     return(
@@ -54,7 +61,7 @@ export default function Meme() {
                 </button>
             </div>
 
-            <img src={memeImage} className="meme--image"/>
+            <img src={meme.randomImage} className="meme--image"/>
             
             
         </main>
